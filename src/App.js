@@ -4,7 +4,7 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-       <h1>hi there i am react developer</h1>
+       <h1>hi there i am react and laravell developer</h1>
     </div>
   );
 }
