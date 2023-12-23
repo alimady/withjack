@@ -2,7 +2,7 @@
   "name": "jack-course",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://alimady.github.io/jack-course",
+  "homepage": "https://alimady.github.io/withjack",
 
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
