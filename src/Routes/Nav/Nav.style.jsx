@@ -2,7 +2,12 @@ import { Nav, Navbar, Container } from "react-bootstrap";
 
 import styled from "styled-components";
 
-export const NavItems = styled(Nav)``;
+export const NavItems = styled(Nav)`
+a{
+  text-decoration: none !important;
+  color:rgba(255, 255, 255, 0.55);
+}
+`;
 
 export const NavContainer = styled(Container)`
   display: flex !important;

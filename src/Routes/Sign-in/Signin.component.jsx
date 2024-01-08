@@ -5,23 +5,45 @@ import { Avatar } from "./Signin.style";
 import { Button } from "./Signin.style";
 import { LoginUser } from "../../utils/php";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  signinStart,
+  signinSucess,
+  signinFaild,
+  reset,
+} from "../../store/user/user.actions";
+import { useNavigate } from "react-router-dom";
+import { selectLoginError } from "../../store/user/user.selector";
+
 const Signin = () => {
-  const [user, setCurrentUser] = useState([]);
+
   const [data, setInputData] = useState({});
-  const [error, setError] = useState({});
- 
- const onChangeHandler = (name, value) => {
+  const error = useSelector(selectLoginError);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+    return ()=>{
+      dispatch(reset())
+    }
+  },[])
+  const onChangeHandler = (name, value) => {
     setInputData({ ...data, [name]: value });
   };
   const signinHandler = () => {
+    dispatch(signinStart());
     LoginUser(data)
       .then((user) => {
+        dispatch(signinSucess(user));
         localStorage.setItem("token", user.token);
-       })
+        navigate("/");
+      })
       .catch((error) => {
-            setError(error.response.data.errors);
+        dispatch(signinFaild(error.response.data.errors));
+        //setError(error.response.data.errors);
       });
+
   };
   return (
     <Row>
@@ -39,19 +61,19 @@ const Signin = () => {
               <img src="https://avatars3.githubusercontent.com/u/21200292?v=4" />
             </Avatar>
             <TextField
-               error={error &&  error.email?true:false}
-               id="standard-error-helper-text"
+              error={error && error.email ? true : false}
+              id="standard-error-helper-text"
               label="Email"
               name="email"
               defaultValue=""
-               helperText={error && error.email }
+              helperText={error && error.email}
               variant="standard"
               onChange={(event) => onChangeHandler("email", event.target.value)}
             />
             <br />
             <TextField
               id="standard-error-helper-text"
-              error={error &&  error.password?true:false}
+              error={error && error.password ? true : false}
               type="password"
               label="Password"
               name="password"

@@ -2,8 +2,16 @@ import { Row, Col, Container } from "./Main.styles";
 import MediaCard from "../../Components/MediaCard.component";
 import { fetchPosts } from "../../utils/php";
 import { useEffect, useState } from "react";
+import { selectIsAuth } from "../../store/user/user.selector";
+import { useSelector } from "react-redux";
+import { redirect, useNavigate } from "react-router-dom";
 
 const Main = () => {
+  const navigate=useNavigate()
+  const isAuth=useSelector(selectIsAuth)
+  if(!isAuth){
+    navigate('/signin')
+  }
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     fetchPosts()
