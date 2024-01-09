@@ -35,9 +35,9 @@ const Signin = () => {
     dispatch(signinStart());
     LoginUser(data)
       .then((user) => {
+         navigate("/");
         dispatch(signinSucess(user));
         localStorage.setItem("token", user.token);
-        navigate("/");
       })
       .catch((error) => {
         dispatch(signinFaild(error.response.data.errors));

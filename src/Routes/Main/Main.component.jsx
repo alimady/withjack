@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { selectIsAuth } from "../../store/user/user.selector";
 import { useSelector } from "react-redux";
 import { redirect, useNavigate } from "react-router-dom";
+import Profile from "../Profile/Profile.component";
+
 
 const Main = () => {
   const navigate=useNavigate()
@@ -13,6 +15,7 @@ const Main = () => {
     navigate('/signin')
   }
   const [posts, setPosts] = useState([]);
+
   useEffect(() => {
     fetchPosts()
       .then((posts) => {
@@ -24,7 +27,7 @@ const Main = () => {
   return (
     <Container>
       <Row>
-        <Col>{posts && posts.map((post) =>
+        <Col lg={5}>{posts && posts.map((post) =>
        {
          const postData=post
          return  <MediaCard id={post.id} post={postData} />
@@ -33,8 +36,9 @@ const Main = () => {
        
         )}
         </Col>
-        <Col>profile</Col>
+        <Col lg={3}><Profile/></Col>
       </Row>
+    
     </Container>
   );
 };
