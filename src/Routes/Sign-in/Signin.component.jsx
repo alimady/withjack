@@ -15,7 +15,7 @@ import {
 } from "../../store/user/user.actions";
 import { useNavigate } from "react-router-dom";
 import { selectLoginError } from "../../store/user/user.selector";
-
+import { signinAsync } from "../../store/user/user.actions";
 const Signin = () => {
 
   const [data, setInputData] = useState({});
@@ -28,21 +28,13 @@ const Signin = () => {
       dispatch(reset())
     }
   },[])
+
   const onChangeHandler = (name, value) => {
     setInputData({ ...data, [name]: value });
   };
   const signinHandler = () => {
-    dispatch(signinStart());
-    LoginUser(data)
-      .then((user) => {
-         navigate("/");
-        dispatch(signinSucess(user));
-        localStorage.setItem("token", user.token);
-      })
-      .catch((error) => {
-        dispatch(signinFaild(error.response.data.errors));
-        //setError(error.response.data.errors);
-      });
+    console.log(data)
+    dispatch(signinAsync(data))
 
   };
   return (
@@ -87,7 +79,7 @@ const Signin = () => {
           </div>
         </Box>
 
-        <Button variant="contained" color="success" onClick={signinHandler}>
+        <Button variant="contained" color="success" onClick={()=>signinHandler()}>
           Sign In
         </Button>
       </Col>

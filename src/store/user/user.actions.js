@@ -1,18 +1,27 @@
 import { createAction } from "../../utils/creatAction";
 import { USER_ACTION_TYPES } from "./user.types";
 import axios from "axios";
-
+import { LoginUser } from "../../utils/php";
 
  
 
-export const signinStart = (data) =>
-  createAction(USER_ACTION_TYPES.SIGNIN_START, data);
+export const signinStart = ( ) =>
+  createAction(USER_ACTION_TYPES.SIGNIN_START);
 
 export const signinSucess = (user) =>
   createAction(USER_ACTION_TYPES.SIGNIN_SUCCESSED, user);
 
 export const signinFaild = (error) =>
   createAction(USER_ACTION_TYPES.SIGNIN_FAILED,error);
+
+export const signinAsync=(data)=>(dispatch)=>{
+ dispatch(signinStart())
+  LoginUser(data).then((userData)=>{
+    dispatch(signinSucess(userData))
+  }).catch((error)=>{
+     dispatch(signinFaild(error.response.data.errors))
+  })
+}
 
 export const signupStart = (data) =>
   createAction(USER_ACTION_TYPES.SIGNUP_START, data);
