@@ -25,7 +25,7 @@ import { Link } from "react-router-dom";
             AliApp
           </Navigator.Brand>
           <NavItems>
-            {isAuth?<NavItems.Link style={{color:'white'}}>{`Hi ${user.name}`}</NavItems.Link>:<NavItems.Link ><Link to="/signin">SIGN IN</Link></NavItems.Link>}
+            {isAuth?<NavItems.Link style={{color:'white'}}>{`Hi ${user?.name}`}</NavItems.Link>:<NavItems.Link ><Link to="/signin">SIGN IN</Link></NavItems.Link>}
             {isAuth &&<NavItems.Link  onClick={()=>signoutHandler()}>SIGN OUT</NavItems.Link>}
 
           <NavItems.Link > <Link to="/">HOME</Link></NavItems.Link>

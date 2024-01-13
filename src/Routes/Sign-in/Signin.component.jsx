@@ -7,35 +7,28 @@ import { LoginUser } from "../../utils/php";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  signinStart,
-  signinSucess,
-  signinFaild,
-  reset,
-} from "../../store/user/user.actions";
+import { reset } from "../../store/user/user.actions";
+
+import { signinStart } from "../../store/user/user.saga";
 import { useNavigate } from "react-router-dom";
 import { selectLoginError } from "../../store/user/user.selector";
-import { signinAsync } from "../../store/user/user.actions";
 const Signin = () => {
-
   const [data, setInputData] = useState({});
   const error = useSelector(selectLoginError);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  useEffect(()=>{
-    return ()=>{
-      dispatch(reset())
-    }
-  },[])
+  useEffect(() => {
+    return () => {
+      dispatch(reset());
+    };
+  }, []);
 
   const onChangeHandler = (name, value) => {
     setInputData({ ...data, [name]: value });
   };
   const signinHandler = () => {
-    console.log(data)
-    dispatch(signinAsync(data))
-
+    dispatch(signinStart(data));
   };
   return (
     <Row>
@@ -79,7 +72,11 @@ const Signin = () => {
           </div>
         </Box>
 
-        <Button variant="contained" color="success" onClick={()=>signinHandler()}>
+        <Button
+          variant="contained"
+          color="success"
+          onClick={() => signinHandler()}
+        >
           Sign In
         </Button>
       </Col>

@@ -16,15 +16,27 @@ axios.defaults.baseURL='http://127.0.0.1:8000/api'
   
 };
 
+
+// export const LoginUser =  async(data) => {
+//         return axios
+//         .post("/login", data)
+//         .then((response) => {
+//           return response
+//          })
+//         .catch((e) => {
+//           return e
+//          });
+//       }
+
 export const LoginUser =  (data) => {
     return new Promise((resolve,reject)=>{
-      axios
+        axios
       .post("/login", data)
       .then((response) => {
-         resolve (response.data)
+           resolve (response.data)
       })
       .catch((e) => {
-        reject (e);
+          reject (e);
       });
     })
     
