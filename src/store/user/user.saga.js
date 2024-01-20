@@ -13,23 +13,37 @@ export const signinSucess = (user) =>
 export const signinFaild = (error) =>
   createAction(USER_ACTION_TYPES.SIGNIN_FAILED, error);
 
+export const updateProfileStart=(image)=>createAction(USER_ACTION_TYPES.UPDATE_PROFILE_START,image)
+export const updateProfileSucessfully=(image)=>createAction(USER_ACTION_TYPES.UPDATE_USER_PROFILE,image)
+
 export function* signinAsync({payload:{email,password}}) {
-   
+      
   try {
   console.log("this is data", { email, password });
     const data={email,password}
-    const currentUser =  yield call(LoginUser,{ email, password });
-       console.log("this is currentUser",currentUser);
-      yield put(signinSucess(currentUser));
+    const {user,token} =  yield call(LoginUser,{ email, password });
+       //console.log("this is currentUser",currentUser);
+      yield put(signinSucess(user));
+      yield call([localStorage, 'setItem'],"token",token)      
+      
    } catch (error) {
-    yield put(signinFaild(error.response.data.errors));
+    yield put(signinFaild(error));
   }
 }
 
-export function* onSigninStart(data) {
+
+export function* onSigninStart() {
   yield takeLatest(USER_ACTION_TYPES.SIGNIN_START,signinAsync);
 }
 
+export function* updateProfileAsync({payload}){
+ yield put(updateProfileSucessfully(payload))
+}
+
+export function* onUpdateProfile(){
+  yield takeLatest(USER_ACTION_TYPES.UPDATE_PROFILE_START,updateProfileAsync)
+}
+
 export function* userSaga() {
-  yield all([call(onSigninStart)]);
+  yield all([call(onSigninStart),call(onUpdateProfile)]);
 }

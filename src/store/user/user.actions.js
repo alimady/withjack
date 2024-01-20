@@ -23,6 +23,7 @@ export const signinAsync=(data)=>(dispatch)=>{
   })
 }
 
+
 export const signupStart = (data) =>
   createAction(USER_ACTION_TYPES.SIGNUP_START, data);
 

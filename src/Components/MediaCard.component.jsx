@@ -10,7 +10,7 @@ import moment from 'moment';
 import { useState } from 'react';
 
  export default function MediaCard({post}) {
-  const {body,user,created_at}=post
+  const {body,user,created_at,likes_count}=post
   const [lgShow, setLgShow]= useState(false);
   const commentHandler=()=>{
     setLgShow(true)
@@ -18,7 +18,7 @@ import { useState } from 'react';
    return (
     <Card sx={ [{display:'flex'},{marginBottom:1},{position:'relative'}]}>
       <CardMedia
-           image={user.profile_mage}
+           image={user.image_url}
           title={user.name}
       />
       <CardContent>
@@ -32,7 +32,7 @@ import { useState } from 'react';
           {moment(created_at).fromNow() } 
         </Typography>
         <ReactionContainer>
-          <div><UnLike/> <span  className='like_count'>0</span></div>  <div><Comment onClick={()=>commentHandler()}/><span className='comment_count'>0</span></div>
+          <div><UnLike/> <span  className='like_count'>{likes_count}</span></div>  <div><Comment onClick={()=>commentHandler()}/><span className='comment_count'>0</span></div>
        </ReactionContainer>
       </CardContent>
       <Modal

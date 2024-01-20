@@ -9,6 +9,7 @@ const INITIAL_STATE = {
 
 export const userReducer = (state = INITIAL_STATE, action = {}) => {
   const { type, payload } = action;
+  
   switch (type) {
     case USER_ACTION_TYPES.SIGNIN_START:
       return { ...state, isLoading: true };
@@ -24,14 +25,17 @@ export const userReducer = (state = INITIAL_STATE, action = {}) => {
 
     case USER_ACTION_TYPES.SIGNUP_SUCCESSED:
       return { ...state, currentUser: payload, isAuth: true,error:null };
-
+    
     case USER_ACTION_TYPES.SIGNUP_FAILED:
       return { ...state, error: payload };
-
-      case USER_ACTION_TYPES.SIGNOUT_START:
+    
+    case USER_ACTION_TYPES.SIGNOUT_START:
         return { ...state, currentUser: null,isAuth:false };
-
-      case 'CLEAR_STATE_ERROR':
+      
+    case USER_ACTION_TYPES.UPDATE_USER_PROFILE:
+        return {...state,currentUser:{...state.currentUser,image_url:payload}}  
+       
+    case 'CLEAR_STATE_ERROR':
         return {...state,error:null}
     default:
       return state;

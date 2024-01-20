@@ -3,20 +3,25 @@ import { TextField } from "@mui/material";
 import { Row, Col, Container } from "./Signin.style";
 import { Avatar } from "./Signin.style";
 import { Button } from "./Signin.style";
-import { LoginUser } from "../../utils/php";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { reset } from "../../store/user/user.actions";
-
 import { signinStart } from "../../store/user/user.saga";
 import { useNavigate } from "react-router-dom";
-import { selectLoginError } from "../../store/user/user.selector";
-const Signin = () => {
+import { selectLoginError, selectUser } from "../../store/user/user.selector";
+
+ const Signin = () => {
   const [data, setInputData] = useState({});
   const error = useSelector(selectLoginError);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const auth=useSelector(selectUser)
+
+  useEffect(()=>{
+   if(auth){
+    navigate('/')
+   }
+  },[auth])
 
   useEffect(() => {
     return () => {
@@ -27,9 +32,11 @@ const Signin = () => {
   const onChangeHandler = (name, value) => {
     setInputData({ ...data, [name]: value });
   };
+
   const signinHandler = () => {
     dispatch(signinStart(data));
-  };
+   };
+
   return (
     <Row>
       <Col lg={5}>

@@ -5,15 +5,21 @@ import { useEffect, useState } from "react";
 import { selectIsAuth } from "../../store/user/user.selector";
 import { useSelector } from "react-redux";
 import { redirect, useNavigate } from "react-router-dom";
+import { selectUser } from "../../store/user/user.selector";
 import Profile from "../Profile/Profile.component";
 
 
 const Main = () => {
   const navigate=useNavigate()
   const isAuth=useSelector(selectIsAuth)
-  if(!isAuth){
-    navigate('/signin')
-  }
+  const currentUser=useSelector(selectUser)
+
+
+  useEffect(()=>{
+    if(!isAuth){
+      navigate('/signin')
+    }
+  },[isAuth])
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -22,7 +28,7 @@ const Main = () => {
         setPosts(posts);
       })
       .catch((error) => {});
-  }, []);
+  }, [currentUser]);
 
   return (
     <Container>

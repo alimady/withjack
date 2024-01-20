@@ -7,7 +7,7 @@ export const selectUser = createSelector(
 );
 
 export const selectCurrentUser = createSelector([selectUser], (user) => {
-   return user?.user;
+   return user;
 });
 
 export const selectCurrentError = createSelector(
