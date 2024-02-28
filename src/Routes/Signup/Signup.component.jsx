@@ -6,8 +6,7 @@ import { Button } from "./Signup.style";
 import { RegisterUser } from "../../utils/php";
 import axios from "axios";
 import { useState } from "react";
-import { signupStart,signupFailed,signupSuceess } from "../../store/user/user.actions";
-import { useDispatch } from "react-redux";
+ import { useDispatch } from "react-redux";
 
 const Signup = () => {
   const [user, setCurrentUser] = useState([]);
@@ -15,18 +14,18 @@ const Signup = () => {
   const [error, setError] = useState({});
   const dispatch=useDispatch()
 
-   const onChangeHandler = (name, value) => {
+  const onChangeHandler = (name, value) => {
     setInputData({ ...data, [name]: value });
   };
   const signupHandler = () => {
-    dispatch(signupStart())
+   // dispatch(signupStart())
     RegisterUser(data)
       .then((user) => {
-        dispatch(signupSuceess(user))
+       // dispatch(signupSuceess(user))
         localStorage.setItem("token", user.token);
       })
       .catch((error) => {
-        dispatch(signupFailed(error.response.data.errors))
+        //dispatch(signupFailed(error.response.data.errors))
        });
   };
 

@@ -5,10 +5,9 @@ import { Avatar } from "./Signin.style";
 import { Button } from "./Signin.style";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { reset } from "../../store/user/user.actions";
-import { signinStart } from "../../store/user/user.saga";
 import { useNavigate } from "react-router-dom";
 import { selectLoginError, selectUser } from "../../store/user/user.selector";
+import { signInStart,clearError } from "../../store/user/user.reducer";
 
  const Signin = () => {
   const [data, setInputData] = useState({});
@@ -25,7 +24,7 @@ import { selectLoginError, selectUser } from "../../store/user/user.selector";
 
   useEffect(() => {
     return () => {
-      dispatch(reset());
+      dispatch(clearError());
     };
   }, []);
 
@@ -34,8 +33,10 @@ import { selectLoginError, selectUser } from "../../store/user/user.selector";
   };
 
   const signinHandler = () => {
-    dispatch(signinStart(data));
+    dispatch(signInStart(data));
    };
+
+  
 
   return (
     <Row>

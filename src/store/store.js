@@ -1,13 +1,15 @@
 
 import { rootReducer } from "./rootReducer";
-import { legacy_createStore as createStore,compose,applyMiddleware } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
 import logger from "redux-logger";
 //import { thunk } from "redux-thunk";
-import createSagaMiddleware from 'redux-saga'
-import { rootSaga } from "./user/root-saga";
-const sagaMiddleware=createSagaMiddleware()
-
- const middleWares=[logger,sagaMiddleware]
-const composedEnhancer=compose(applyMiddleware(...middleWares))
-export const store=createStore(rootReducer,undefined,composedEnhancer)
-sagaMiddleware.run(rootSaga)
+  
+const middlewares=[logger]
+export const store= configureStore({
+    reducer:rootReducer,
+    middleware:(getDefaultMiddleware)=>(getDefaultMiddleware({
+        serializableCheck:false
+    })).concat(
+        middlewares
+    )
+});

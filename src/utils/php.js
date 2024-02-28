@@ -6,7 +6,8 @@ const axios = Axios.create({
   headers: {
        'Accept': 'application/json',
   },
-  baseURL:"http://127.0.0.1:8000/api"
+  baseURL:"http://127.0.0.1:8000/api",
+  //mode: 'no-cors',
 });
 
 axios.interceptors.request.use((config) => {
@@ -63,6 +64,9 @@ export const uploadProfile = (image) => {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
      // Authorization: `Bearer ${token}`,
+     //"Content-Type": "application/json",
+     //'Access-Control-Allow-Origin': '*',
+     //credentials: 'same-origin'
     },
   };
  
@@ -78,10 +82,25 @@ export const uploadProfile = (image) => {
   });
 };
 
-export const fetchPosts = () => {
+export const fetchPosts = async() => {
   return new Promise((done, fail) => {
     axios
       .get("/posts")
+      .then((response) => {
+        console.log(response.data)
+        done(response.data);
+      })
+      .catch((error) => {
+        fail(error.data);
+      });
+  });
+};
+
+
+export const Like = (id) => {
+  return new Promise((done, fail) => {
+    axios
+      .post("/like",{post_id:id})
       .then((response) => {
         done(response.data);
       })

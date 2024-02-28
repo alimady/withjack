@@ -5,6 +5,7 @@ import {
   Paper,
   EditIcon,
 } from "./Profile.style";
+
 import { Typography } from "@mui/material";
 import { LocationOn } from "@mui/icons-material";
 import LinkIcon from "@mui/icons-material/Link";
@@ -13,19 +14,18 @@ import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/user/user.selector";
 import { useEffect, useState } from "react";
 import moment from "moment";
-import { uploadProfile } from "../../utils/php"; 
-import { updateProfileStart } from "../../store/user/user.saga";
+import { uploadProfile } from "../../utils/php";
 import { useDispatch } from "react-redux";
-
+import { uploadProfileImage } from "../../store/user/user.reducer";
 const Profile = () => {
   const currentUser = useSelector(selectCurrentUser);
   //console.log("image_url",currentUser.image_url)
   const [selectedAvatar, setSelectedAvatar] = useState();
   const [profile, setIsChanged] = useState(false);
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    console.log("changed-----------")
-    setSelectedAvatar(currentUser?.image_url);
+     setSelectedAvatar(currentUser?.image_url);
   }, [profile]);
 
   const uploadimageHandler = () => {
@@ -33,17 +33,14 @@ const Profile = () => {
   };
 
   const onChangeHandler = (e) => {
-    const newImageURL=URL.createObjectURL(e.target.files[0])
-    const newImage=e.target.files[0];
+     const newImage = e.target.files[0];
     if (!e.target.files || !e.target.files.length) {
       //setSelectedAvatar("");
       return;
     }
     //setSelectedAvatar(URL.createObjectURL(e.target.files[0]));
-    uploadProfile(newImage).then((res) => {
-       dispatch(updateProfileStart(newImageURL))
-       setIsChanged(true);
-    });
+    dispatch(uploadProfileImage(newImage));
+    setIsChanged(true);
   };
 
   return (
