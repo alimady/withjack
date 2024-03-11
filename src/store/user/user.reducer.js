@@ -13,9 +13,9 @@ const INITIAL_STATE = {
 export const uploadProfileImage = createAsyncThunk(
   "user/uploadProfileImage",
   async (image, { rejectWithValue }) => {
-   return  uploadProfile(image).then(() => {
-        return URL.createObjectURL(image);
-     });
+    return uploadProfile(image).then(() => {
+      return URL.createObjectURL(image);
+    });
   }
 );
 
@@ -24,12 +24,10 @@ export const signInStart = createAsyncThunk(
   async (user, { rejectWithValue }) => {
     return LoginUser(user)
       .then((currentUser) => {
-        //dispatch(signinSucess(currentUser));
         localStorage.setItem("token", currentUser.token);
         return currentUser.user;
       })
       .catch((error) => {
-        //dispatch(signinSucess(error));
         rejectWithValue(error);
       });
   }
@@ -50,7 +48,7 @@ export const userSlice = createSlice({
     },
     signout(state) {
       state.currentUser = null;
-      state.isAuth=false;
+      state.isAuth = false;
     },
     clearError(state) {
       state.error = null;
@@ -64,7 +62,7 @@ export const userSlice = createSlice({
         state.isAuth = true;
       })
       .addCase(signInStart.pending, (state, action) => {
-         state.isLoading = true;
+        state.isLoading = true;
       })
       .addCase(signInStart.rejected, (state, action) => {
         state.error = action.payload;

@@ -1,6 +1,6 @@
 import { Row, Col, Container } from "./Main.styles";
 import MediaCard from "../../Components/MediaCard.component";
- import { useEffect, useState } from "react";
+ import { useEffect, useRef, useState } from "react";
 import { selectIsAuth } from "../../store/user/user.selector";
 import { useSelector } from "react-redux";
 import { postSelector } from "../../store/post/post.selector";
@@ -12,14 +12,13 @@ import { getPostsAsync } from "../../store/post/post.reducer";
 import { isLikePost } from "../../store/post/post.selector";
 
 const Main = () => {
+  console.log("main render")
   const navigate=useNavigate()
   const isAuth=useSelector(selectIsAuth)
   const currentUser=useSelector(selectUser)
   const posts=useSelector(postSelector)
+  console.log("pooooooooooooooo",posts)
   const dispatch=useDispatch()
-  const postswithLike=useSelector(isLikePost)
-
-
   useEffect(()=>{
     if(!isAuth){
       navigate('/signin')
@@ -27,13 +26,15 @@ const Main = () => {
   },[isAuth])
  
   useEffect(() => {
-    dispatch(getPostsAsync())
-  }, [currentUser]);
+    dispatch(getPostsAsync(currentUser?.id))
+  },[]);
+
+  
 
   return (
     <Container>
       <Row>
-        <Col lg={5}>{postswithLike && postswithLike.map((post) =>
+        <Col lg={5}>{posts && posts.map((post) =>
        {
          //const postData=post
          return  <MediaCard id={post.id} post={post} />

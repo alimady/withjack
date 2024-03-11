@@ -8,7 +8,7 @@ export const selectUser = createSelector(
 );
 
 export const selectCurrentUser = createSelector([selectUser], (user) => {
-   return user;
+  return user;
 });
 
 export const selectCurrentError = createSelector(
@@ -16,18 +16,15 @@ export const selectCurrentError = createSelector(
   (errorSlice) => errorSlice.error
 );
 
-export const selectLoginError=createSelector(
-    [selectCurrentError],
-    (error)=>error
-)
+export const selectLoginError = createSelector(
+  [selectCurrentError],
+  (error) => error
+);
 
-export const checkUser=createSelector(
-    [selectUserReducer],(user)=>{
-        return user?.isAuth;
-    }
-)
+export const checkUser = createSelector([selectUserReducer], (user) => {
+  return user?.isAuth;
+});
 
-export const selectIsAuth=createSelector(
-    [checkUser],(isAuth)=>{
-        return isAuth
-    })
+export const selectIsAuth = createSelector([checkUser], (isAuth) => {
+  return isAuth;
+});
