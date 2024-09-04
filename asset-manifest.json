@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/github.io/unify/static/css/main.4a641852.css",
-    "main.js": "/github.io/unify/static/js/main.9fd6b1db.js",
-    "static/js/453.7df70bcf.chunk.js": "/github.io/unify/static/js/453.7df70bcf.chunk.js",
-    "static/media/police-badge.svg": "/github.io/unify/static/media/police-badge.804071d50deee20b4c667e79b813e27f.svg",
-    "index.html": "/github.io/unify/index.html",
-    "main.4a641852.css.map": "/github.io/unify/static/css/main.4a641852.css.map",
-    "main.9fd6b1db.js.map": "/github.io/unify/static/js/main.9fd6b1db.js.map",
-    "453.7df70bcf.chunk.js.map": "/github.io/unify/static/js/453.7df70bcf.chunk.js.map"
+    "main.css": "/unify/static/css/main.4a641852.css",
+    "main.js": "/unify/static/js/main.b374ea05.js",
+    "static/js/453.7df70bcf.chunk.js": "/unify/static/js/453.7df70bcf.chunk.js",
+    "static/media/police-badge.svg": "/unify/static/media/police-badge.804071d50deee20b4c667e79b813e27f.svg",
+    "index.html": "/unify/index.html",
+    "main.4a641852.css.map": "/unify/static/css/main.4a641852.css.map",
+    "main.b374ea05.js.map": "/unify/static/js/main.b374ea05.js.map",
+    "453.7df70bcf.chunk.js.map": "/unify/static/js/453.7df70bcf.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.4a641852.css",
-    "static/js/main.9fd6b1db.js"
+    "static/js/main.b374ea05.js"
   ]
 }
